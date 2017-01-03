@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="{{ site.root }}/static/css/typo.css">
+        <link rel="Stylesheet" type="text/css" href="{{ site.root }}/static/css/reset_typo.css">
+        <link rel="Stylesheet" type="text/css" href="{{ site.root }}/static/css/tango.css">
+        <link rel="Stylesheet" type="text/css" href="{{ site.root }}/static/css/style.css">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="keywords" content="{{ site.keywords }}"/>
+        <meta name="description" content="{{ site.description }}"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {% block extra_scripts %}{% endblock %}
+
+        <script>
+          var _hmt = _hmt || [];
+          (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?c7b15dfe4e9690bf81b7ecb8cf295a2d";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-77346613-3', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+    </head>
+
+    <body>
+        <div id="container" class="typo">
+            {% block container %}
+            {% endblock %}
+        </div>
+        <div id="footer">
+              <p>Copyright © 2012-{{ site.time.strftime("%Y") }} {{ site.author }}.Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+              <p>Last Update {{ site.time.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+              <p>PageViews:<span id="busuanzi_value_site_pv"></span> | Vistors:<span id="busuanzi_value_site_uv"></span></p>
+        </div>
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    </body>
+</html>

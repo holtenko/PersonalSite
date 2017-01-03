@@ -1,0 +1,122 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Love</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link href="css/default.css" tppabs="./css/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js" tppabs="./js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js" tppabs="./js/garden.js"></script>
+  <script type="text/javascript" src="js/functions.js" tppabs="./js/functions.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url("digital-7_mono.ttf"/*tpa=./digital-7_mono.ttf*/) format("truetype");
+		}
+	</style>
+</head>
+<body>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="code">
+				<span class="comments">/**</span><br />
+				<span class="space"/><span class="comments">* Today, we have fallen in love for a whole year,</span><br />
+				<span class="space"/><span class="comments">* so I forked some codes to commemorate it.</span><br />
+				<span class="space"/><span class="comments">*/</span><br />
+				Boy i = <span class="keyword">new</span> Boy(<span class="string">"Holten_KO"</span>);<br />
+				Girl u = <span class="keyword">new</span> Girl(<span class="string">"Rita_Wong"</span>);<br />
+				<span class="comments">// Someday at 2007. </span><br />
+				i.know(u);<br />
+				<span class="comments">// We are high school classmates.</span><br />
+				u.comeTo(i.heart);<br />
+				<span class="comments">// Someday at 2011, I said love to you, but I failed. </span><br />
+				i.sayLoveTo(u);<br />
+				u.refuse(i);<br />
+
+				<span class="keyword">while</span> (<span class="keyword">true</span>) <br />
+				<span class="placeholder">u.live(i.heart);</span> <br />
+				<span class="comments">// ...Stack overflow, finally</span> <br />
+				isForget = <span class="keyword">false</span>;<br />
+				<span class="comments">// Feb 25, 2015, I met you again and drove you home.</span><br />
+				<span class="comments">// And I realized something... </span> <br />
+				<span class="comments">// I love you, and never forget you.</span> <br />
+
+				<span class="comments">// May 20, 2015 22:43, I try again...</span><br />
+				<span class="keyword">try</span>{<br />
+					<span class="placeholder">i.love(u);</span> <br />
+				}<span class="keyword">catch</span>(Chance chance){<br />
+					<span class="placeholder">chance = u.give(i);</span> <br />
+				}<span class="keyword">finally</span>{<br />
+					<span class="comments">// May 31, 2015 00:57</span><br />
+					<span class="comments">// Fortunately, you accepted me.</span><br />
+					<span class="placeholder">u.accept(i);</span><br />
+				}<br />
+				<span class="comments">// I will never forget.</span><br />
+				<span class="comments">// I told you I will love you for the rest of my life.</span><br />
+				<span class="comments">// I will give you my whole life to make you happy.</span><br />
+			</div>
+
+			<div id="loveHeart">
+				<canvas id="garden"></canvas>
+				<div id="words">
+					<div id="messages">
+						 Rita, I have fallen in love with you for
+						<div id="elapseClock"></div>
+					</div>
+					<div id="loveu">
+						Love you forever!<br/>
+						<div class="signature"> —— Holten</div>
+
+				</div>
+			</div>
+</div>
+	<div class="bg1">
+		<div class="main">
+			<footer style="line-height:20px">
+                <div id="copyright">
+                  <p><a href='http://www.holten.site' target="_blank">holten</a></p>
+                </div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript">
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 - 55;
+		var together = new Date();
+		together.setFullYear(2015, 04, 31);
+		together.setHours(0);
+		together.setMinutes(57);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "提醒您：您的浏览器版本过旧^_^<br/>"
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			setTimeout(function () {
+				adjustWordsPosition();
+				startHeartAnimation();
+			}, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			adjustCodePosition();
+			$("#code").typewriter();
+		}
+	</script>
+</body>
+</html>
