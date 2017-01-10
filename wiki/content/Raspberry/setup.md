@@ -33,7 +33,7 @@ sudo apt-get upgrade
 选择`Asia，Shanghai`。
 
 #### 其它环境
-开启`Interface-SSH`。
+开启`Preference-Raspberry Pi Configuration-Interface-SSH`。
 
 其它如Keyboard，WiFi Country自己设置一下为China。
 
