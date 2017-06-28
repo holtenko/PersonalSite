@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Holten
-subtitle: Not only a technology blog.
-description: Life is beautiful.
-author: Holten KO
-language: en
-timezone:
+title: 小天涯
+subtitle: Make your own way.
+description: blog, holten, personal
+author: Holten
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.Holten.site
+url: http://yoursite.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -75,7 +75,4 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository:
-    github: git@github.com:holtenko/blog.git,master
-    coding: git@git.coding.net:holten/holten.git,coding-pages
-    coding2: git@git.coding.net:holten/blog.git,coding-pages
+  repository: git@github.com:holtenko/blog.git,master
