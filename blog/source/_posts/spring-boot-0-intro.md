@@ -89,3 +89,110 @@ Maven的出现已经可以帮我解决了很多依赖的问题，不用再一个
 除了这两种方式之外还有其他一些方式，比如Spring Boot CLI、Spring Tool Suite等等，这些就不做介绍了。
 #### 如何开始
 
+这里采用在`http://start.spring.io`上新建项目后下载，这是下载之后的文件目录：
+```bash
+.
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── site
+    │   │       └── holten
+    │   │           └── springboot0
+    │   │               └── Springboot0Application.java
+    │   └── resources
+    │       └── application.properties
+    └── test
+        └── java
+            └── site
+                └── holten
+                    └── springboot0
+                        └── Springboot0ApplicationTests.java
+12 directories, 6 files
+```
+我们首先看一下pom.xml，这里只添加了web starter：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>site.holten</groupId>
+	<artifactId>springboot0</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>springboot0</name>
+	<description>Demo project for Spring Boot</description>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+```
+
+作为简单示例，我们直接在`Springboot0Application.java`中编写代码：
+```java
+package site.holten.springboot0;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+@RestController
+@SpringBootApplication
+public class Springboot0Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Springboot0Application.class, args);
+    }
+    @RequestMapping("/")
+    public String homepage() {
+        return "this is home page!";
+    }
+    @RequestMapping("/hello/{name}")
+    public String sayHello(@PathVariable String name) {
+        return "hello " + name;
+    }
+}
+```
+
+这里了解这么几点就可以了：
+- `SpringApplication.run(Springboot0Application.class, args)`：main方法中的这句话用来指定程序的入口；
+- `@SpringBootApplication`：这个是最重要的，标识着这是一个Spring Boot项目，开启自动配置；
+- `@RestController`：这个是Spring MVC里面的注解，组合了`@Controller`和`@ResponseBody`；
+- `@RequestMapping`：用来映射请求路径/参数、处理类和方法；
+- `@Controller`：表明这是一个Spring MVC的Controller，Dispatcher Servlet会自动扫描该类，发现其中的`@RequestMapping`注解并映射；
+- `@ResponseBody`：用来支持把返回值放到response体内；
+
+代码写完了，如何运行呢？
+- 如果你是用的IDE，那么直接run或者debug就可以了；
+- 如果没有，可以在命令行里运行`mvn spring-boot:run`，当然，前提是你要安装了maven，并且在项目根目录下；
+- 然后在地址栏输入`http://localhost:8080/`或者`http://localhost:8080/hello/yourname`就可以看到结果了；
+
+具体效果就不贴图了，自行体会～～～
