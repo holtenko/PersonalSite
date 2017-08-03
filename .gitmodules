@@ -1,0 +1,2 @@
+[submodule "blog/themes/next"]
+	url = git@github.com:holtenko/hexo-theme-next.git
