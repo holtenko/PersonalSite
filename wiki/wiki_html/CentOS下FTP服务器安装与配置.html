@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>CentOS下FTP服务器安装与配置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="holten">
+    
+    <link rel="icon" href="static/favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="static/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/sticky-footer-navbar.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="static/ie-emulation-modes-warning.js"></script><style type="text/css">
+:root #content > #right > .dose > .dosesingle,
+:root #content > #center > .dose > .dosesingle
+{ display: none !important; }</style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <style type="text/css">
+:root .footer > #box[style="width:100%;height:100%;position:fixed;top:0"]
+{ display: none !important; }</style>
+</head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://wiki.holten.site">holten's wiki</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="http://www.holten.site">Home</a></li>
+            <li><a href="http://blog.holten.site">Blog</a></li>
+            <li class="active"><a href="http://wiki.holten.site">Wiki</a></li>
+            <li><a href="https://github.com/holtenko">Github</a></li>
+            <li><a href="http://photo.holten.site">Photo</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- Begin page content -->
+    <div class="container">
+      
+<div id="安装vsftpd"><h2 id="安装vsftpd">安装vsftpd</h2></div>
+<blockquote>
+yum install vsftpd
+</blockquote>
+    
+<div id="启动&#47;重启&#47;关闭vsftpd服务器"><h2 id="启动&#47;重启&#47;关闭vsftpd服务器" class="justcenter">启动/重启/关闭vsftpd服务器</h2></div>
+<blockquote>
+CentOS7 以下：
+</blockquote>
+<ul>
+<li>
+启动: <code>service vsftpd start</code>
+
+<li>
+ * 停止: <code>service vsftpd stop</code>
+
+<li>
+ * 重启: <code>service vsftpd restart</code>
+
+<li>
+ * 执行完成后可以使用<code>service vsftpd status</code>查看运行状态
+
+<li>
+CentOS7：
+
+<li>
+ * 启动: <code>/bin/systemctl start vsftpd.service</code>
+
+<li>
+ * 停止: <code>/bin/systemctl stop vsftpd.service</code>
+
+<li>
+ * 重启: <code>/bin/systemctl restart vsftpd.service</code>
+
+<li>
+ * 执行完成后可以使用<code>/bin/systemctl status vsftpd.service</code>查看状态
+
+</ul>
+<li>
+== 与vsftpd服务器有关的文件和文件夹 ==
+
+<li>
+vsftpd服务器的配置文件的是: <code>/etc/vsftpd/vsftpd.conf</code>
+
+<div id="定制进入FTP服务器的欢迎信息"><h2 id="定制进入FTP服务器的欢迎信息">定制进入FTP服务器的欢迎信息</h2></div>
+<p>
+在vsftpd.conf文件中设置:<code>dirmessage_enable=yes</code>,然后进入用户目录建立一个<code>.message</code>文件,输入欢迎信息即可。
+</p>
+
+<div id="设置开机启动"><h2 id="设置开机启动">设置开机启动</h2></div>
+<p>
+找到/etc/rc.local文件，在最后一行添加：<code>service vsftpd start</code> ,保存，退出
+</p>
+
+<div id="配置vsftpd.conf"><h2 id="配置vsftpd.conf">配置vsftpd.conf</h2></div>
+
+<pre>
+
+anonymous_enable=NO                                  #禁止匿名
+
+local_enable=YES                                     #允许本地登录
+
+write_enable=YES                                     #允许写，如需上传，则必须
+
+local_umask=027                                      #将上传文件的权限设置为：777-local_umask
+
+anon_upload_enable=YES                               # 允许虚拟用户和匿名用户上传
+
+anon_other_write_enable=YES                          #允许虚拟用户和匿名用户修改文件名和删除文件
+
+dirmessage_enable=YES          
+
+xferlog_enable=YES                                   #打开日志记录
+
+connect_from_port_20=YES
+
+xferlog_file=/var/log/vsftpd.log                     #日志存放位置
+
+xferlog_std_format=YES                               #标准日志格式
+
+idle_session_timeout=600                             #空闲连接超时
+
+data_connection_timeout=120
+
+ftpd_banner=Welcome to Holten FTP service            #欢迎信息
+
+guest_enable=yes                                     #允许虚拟用户
+
+guest_username=vsftpdguest                           #虚拟用户使用的系统账号
+
+virtual_use_local_privs=YES                          #虚拟用户拥有本地系统权限
+
+chroot_local_user=NO              
+
+chroot_list_enable=YES
+
+#以上两行将虚拟用户限制在其目录下，不能访问其他目录，或者直接用                            
+
+chroot_local_user=YES                               
+
+listen=yes                                           #监听/被动模式
+
+listen_port=21                                       #监听端口
+
+chroot_list_file=/etc/vsftpd/vsftpd.chroot_list      #虚拟用户名单保存在文件 /etc/vsftpd/vsftpd.chroot_list 中
+
+user_config_dir=/etc/vsftpd/vsftpd_user_conf         #每个虚拟用户名的更加详细的配置保存在 /etc/vsftpd/vsftpd_user_conf 中
+
+</pre>
+
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">©2015-2017 HoltenKO，All rights reserved.      PageViews:<span id="busuanzi_value_site_pv"></span> | Vistors:<span id="busuanzi_value_site_uv"></p>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="static/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/ie10-viewport-bug-workaround.js"></script>
+  
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+== 227 Entering Passive Mode ==
+{{{
+响应: 227 Entering Passive Mode (192,168,1,16,221,111).
+命令: LIST
+错误: 连接超时
+错误: 读取目录列表失败
+}}}
+
+*解决方法：*
+1. 打开`/etc/vsftpd/vsftpd.conf`在最后面加入如下：
+2. {{{
+3. pasv_min_port=1
+4. pasv_max_port=30999
+5. }}}
+6. 2. 在iptable防火墙规则中加入如下规则：
+7.   打开`/etc/sysconfig/iptables`加入如下：
+8. {{{
+9. -A INPUT -m state –state NEW -m tcp -p tcp –dport 1:30999 -j ACCEPT
+10. }}}
+11. 3. 重启vsftp和iptables服务了。
+12.   * 重启vsftp服务`service vsftpd restart`
+13.   * 重启iptables服务`service iptables restart`
